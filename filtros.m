@@ -132,8 +132,8 @@ H =ones(M,N);
 centros = [56 86  10; 112  82 10; 112  41 10; 55 45  10;
            58 166 10; 114 162 10; 115 203 10; 58 207 10 ];
 
-out = idealHighpassFilter( 25, 25, 10 );  
-%out = gaussianHighpassfilter( 25, 25, 5 );  
+%out = idealHighpassFilter( 25, 25, 10 );  
+out = gaussianHighpassfilter( 25, 25, 5 );  
 
 [m,n]=size(out);
 
@@ -143,12 +143,21 @@ for index = 1:8
     H(row:row+m-1 , col:col+n-1) = out;    
 end
 
-figure;imshow(H,[])
-
+figure;
+subplot(1,2,1);
+imshow(H,[])
+title('Centros alinhados à frequência');
 G = J.*H;
-figure;imshow(G,[])
+subplot(1,2,2);
+imshow(G,[]);
+title('Centros alinhados à frequência sob o espctro');
 
 G = F.*H;
 frec = ifft2(fftshift(G));
-
-figure;imshow(frec,[])
+figure;
+subplot(1,2,1);
+imshow(f,[]);
+title('Imagem Original');
+subplot(1,2,2);
+imshow(frec,[])
+title('Imagem trabalhada - Efeito Moiré retirado');

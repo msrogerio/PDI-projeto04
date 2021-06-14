@@ -117,13 +117,14 @@ title('Histograma Img Original');
 
 F = fft2(f);
 F = fftshift(F);
-figure; imshow(abs(F),[])
-
 J = 1 * log (1 + abs(F));
 figure;
 subplot(1,2,1);
+imshow(abs(F),[]);
+title('Trasnformada normalizada');
+subplot(1,2,2);
 imshow(abs(J),[]);
-title('Log da imagem ');
+title('Log da trasnformada normalizada');
 
 [M,N]=size(f);
 H =ones(M,N);
@@ -139,10 +140,13 @@ out = idealHighpassFilter( 25, 25, 10 );
 for index = 1:8
     col = floor(centros(index,1)-n/2);
     row = floor(centros(index,2)-m/2);
-    H(row:row+m-1 , col:col+n-1 ) = out;    
+    H(row:row+m-1 , col:col+n-1) = out;    
 end
 
-figure;imshow(H,[])
+figure;
+subplot(1.2.1);
+imshow(H,[])
+title('Centro alinhados à frequência');
 
 G = J.*H;
 figure;imshow(G,[])
