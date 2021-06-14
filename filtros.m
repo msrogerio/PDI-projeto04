@@ -1,11 +1,11 @@
-%% Projeto 03
+%% Projeto 04
 % *Autor:* Marlon da Silva Rogério
 
 %% Referências
 % *GONZALEZ, R. C.*, WOODS, R. E. Processamento de Imagens Digitais. 
 % Editora Edgard Blucher, ISBN São Paulo, 2000.
 % *Support MathWorks*, 2021. Disponível em: <https://www.mathworks.com/help/>.
-% Acesso em: 22 de maio. de 2021.
+% Acesso em: 25 de maio. de 2021.
 % Txh, Q. R. and Ilowurv, V. ([S.d.]). Filtros Compostos e Adaptativos. p. 1–20. 
 
 close all; clear; clc;
@@ -35,8 +35,8 @@ title('Fitro passa-altas');
 
 % *PASSA-ALTAS*
 % f_original = imread('lab.bmp');
-%f_original = imread('mulher.jpeg');
-f_original = imread('operacao.jpeg');
+f_original = imread('mulher.jpeg');
+% f_original = imread('operacao.jpeg');
 f_original = rgb2gray(f_original);
 figure; 
 subplot(1,2,1);
@@ -59,19 +59,20 @@ x=linspace(-5,5,N);
 y=linspace(-5,5,M);
 
 %% 
-[X,Y]=meshgrid(x,y);
 formula=imread('form_gauss.png');
+[X,Y]=meshgrid(x,y);
 figure;
 subplot(1,2,1);
 imshow(formula, []);
 title('Equação isotrópica em 2-D da função Gaussiana');
-z=(3.9/sqrt(2*pi).*exp(-(X.^2/2)-(Y.^2/2)));
+z=(2.9/sqrt(2*pi).*exp(-(X.^2/2)-(Y.^2/2)));
 z2= 1.1569-z;
 subplot(1,2,2);
 surf(X,Y,z2);
 shading interp
 axis tight
 
+%%
 H = fftshift(z2);
 G = F.*H;
 g = ifft2(G);
@@ -90,9 +91,8 @@ title('Espectro da frequência');
 %% 2 Notch (Definição)
 % - *Filtro notch:* filtragem notch é usada para eliminar efeitos de ruídos 
 % periódicos(filtros notch são filtros capazes de rejeitar uma faixa bastante 
-% estreita de freqüências,assim sua utilização é recomendada quando o sinal a 
+% estreita de freqüências, assim sua utilização é recomendada quando o sinal a 
 % ser atenuado é bem definido). 
-
 
 %% 2.1 Notch (Aplicação)
 % Aplicar na imagem ao lado, para remover o efeito Moiré 
@@ -103,7 +103,7 @@ close all; clear; clc;
 moire = imread('moire.jpeg');
 imshow(moire);
 title('Conceito de Moiré');
-
+%%
 f = imread('carro.bmp');
 f = rgb2gray(f);
 
@@ -114,7 +114,7 @@ title('Imagem Original')
 subplot(1,2,2);
 imhist(f);
 title('Histograma Img Original');
-
+%%
 F = fft2(f);
 F = fftshift(F);
 J = 1 * log (1 + abs(F));
@@ -125,7 +125,7 @@ title('Trasnformada normalizada');
 subplot(1,2,2);
 imshow(abs(J),[]);
 title('Log da trasnformada normalizada');
-
+%%
 [M,N]=size(f);
 H =ones(M,N);
 
@@ -151,7 +151,7 @@ G = J.*H;
 subplot(1,2,2);
 imshow(G,[]);
 title('Centros alinhados à frequência sob o espctro');
-
+%%
 G = F.*H;
 frec = ifft2(fftshift(G));
 figure;
